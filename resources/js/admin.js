@@ -13,15 +13,6 @@ $(function() {
 
 	// Waves初始化
 	Waves.displayEffect();
-	// 显示cookie菜单
-	var systemid = $.cookie('zheng-upms-systemid') || 1;
-	var systemname = $.cookie('zheng-upms-systemname') || 'zheng-upms-server';
-	var systemtitle = $.cookie('zheng-upms-systemtitle') || '客户信息管理系统';
-	$('.system_menus').hide(0, function () {
-		$('.system_' + systemid).show();
-	});
-	$('body').attr('id', systemname);
-	$('#system_title').text(systemtitle);
 });
 // iframe高度自适应
 function changeFrameHeight(ifm) {
@@ -212,18 +203,5 @@ function initScrollState() {
 		$('.tab_right>a').removeClass('active');
 	} else {
 		$('.tab_right>a').addClass('active');
-	}
-}
-
-function fullPage() {
-
-	if ($.util.supportsFullScreen) {
-		if ($.util.isFullScreen()) {
-			$.util.cancelFullScreen();
-		} else {
-			$.util.requestFullScreen();
-		}
-	} else {
-		alert("当前浏览器不支持全屏 API，请更换至最新的 Chrome/Firefox/Safari 浏览器或通过 F11 快捷键进行操作。");
 	}
 }
