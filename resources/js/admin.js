@@ -69,83 +69,83 @@ $(function() {
 	// 初始化箭头状态
 	
 	// 选项卡右键菜单
-	var menu = new BootstrapMenu('.tabs li', {
-		fetchElementData: function(item) {
-			return item;
-		},
-		actionsGroups: [
-			['close', 'refresh'],
-			['closeOther', 'closeAll'],
-			['closeRight', 'closeLeft']
-		],
-		actions: {
-			close: {
-				name: '关闭',
-				iconClass: 'zmdi zmdi-close',
-				onClick: function(item) {
-					Tab.closeTab($(item));
-				}
-			},
-			closeOther: {
-				name: '关闭其他',
-				iconClass: 'zmdi zmdi-arrow-split',
-				onClick: function(item) {
-					var index = $(item).data('index');
-					$('.content_tab li').each(function() {
-						if ($(this).data('index') != index) {
-							Tab.closeTab($(this));
-						}
-					});
-				}
-			},
-			closeAll: {
-				name: '关闭全部',
-				iconClass: 'zmdi zmdi-swap',
-				onClick: function() {
-					$('.content_tab li').each(function() {
-						Tab.closeTab($(this));
-					});
-				}
-			},
-			closeRight: {
-				name: '关闭右侧所有',
-				iconClass: 'zmdi zmdi-arrow-right',
-				onClick: function(item) {
-					var index = $(item).data('index');
-					$($('.content_tab li').toArray().reverse()).each(function() {
-						if ($(this).data('index') != index) {
-							Tab.closeTab($(this));
-						} else {
-							return false;
-						}
-					});
-				}
-			},
-			closeLeft: {
-				name: '关闭左侧所有',
-				iconClass: 'zmdi zmdi-arrow-left',
-				onClick: function(item) {
-					var index = $(item).data('index');
-					$('.content_tab li').each(function() {
-						if ($(this).data('index') != index) {
-							Tab.closeTab($(this));
-						} else {
-							return false;
-						}
-					});
-				}
-			},
-			refresh: {
-				name: '刷新',
-				iconClass: 'zmdi zmdi-refresh',
-				onClick: function(item) {
-					var index = $(item).data('index');
-					var $iframe = $('#iframe_' + index).find('iframe');
-					$iframe.attr('src', $iframe.attr('src'));
-				}
-			}
-		}
-	});
+	// var menu = new BootstrapMenu('.tabs li', {
+	// 	fetchElementData: function(item) {
+	// 		return item;
+	// 	},
+	// 	actionsGroups: [
+	// 		['close', 'refresh'],
+	// 		['closeOther', 'closeAll'],
+	// 		['closeRight', 'closeLeft']
+	// 	],
+	// 	actions: {
+	// 		close: {
+	// 			name: '关闭',
+	// 			iconClass: 'zmdi zmdi-close',
+	// 			onClick: function(item) {
+	// 				Tab.closeTab($(item));
+	// 			}
+	// 		},
+	// 		closeOther: {
+	// 			name: '关闭其他',
+	// 			iconClass: 'zmdi zmdi-arrow-split',
+	// 			onClick: function(item) {
+	// 				var index = $(item).data('index');
+	// 				$('.content_tab li').each(function() {
+	// 					if ($(this).data('index') != index) {
+	// 						Tab.closeTab($(this));
+	// 					}
+	// 				});
+	// 			}
+	// 		},
+	// 		closeAll: {
+	// 			name: '关闭全部',
+	// 			iconClass: 'zmdi zmdi-swap',
+	// 			onClick: function() {
+	// 				$('.content_tab li').each(function() {
+	// 					Tab.closeTab($(this));
+	// 				});
+	// 			}
+	// 		},
+	// 		closeRight: {
+	// 			name: '关闭右侧所有',
+	// 			iconClass: 'zmdi zmdi-arrow-right',
+	// 			onClick: function(item) {
+	// 				var index = $(item).data('index');
+	// 				$($('.content_tab li').toArray().reverse()).each(function() {
+	// 					if ($(this).data('index') != index) {
+	// 						Tab.closeTab($(this));
+	// 					} else {
+	// 						return false;
+	// 					}
+	// 				});
+	// 			}
+	// 		},
+	// 		closeLeft: {
+	// 			name: '关闭左侧所有',
+	// 			iconClass: 'zmdi zmdi-arrow-left',
+	// 			onClick: function(item) {
+	// 				var index = $(item).data('index');
+	// 				$('.content_tab li').each(function() {
+	// 					if ($(this).data('index') != index) {
+	// 						Tab.closeTab($(this));
+	// 					} else {
+	// 						return false;
+	// 					}
+	// 				});
+	// 			}
+	// 		},
+	// 		refresh: {
+	// 			name: '刷新',
+	// 			iconClass: 'zmdi zmdi-refresh',
+	// 			onClick: function(item) {
+	// 				var index = $(item).data('index');
+	// 				var $iframe = $('#iframe_' + index).find('iframe');
+	// 				$iframe.attr('src', $iframe.attr('src'));
+	// 			}
+	// 		}
+	// 	}
+	// });
 });
 // 选项卡对象
 var Tab = {
@@ -155,7 +155,7 @@ var Tab = {
 		if ($('#tab_' + index).length == 0) {
 			// 添加选项卡
 			$('.content_tab li').removeClass('cur');
-			var tab = '<li id="tab_' + index +'" data-index="' + index + '" class="cur"><a class="waves-effect waves-light">' + title + '</a></li>';//<i class="zmdi zmdi-close"></i><
+			var tab = '<li id="tab_' + index +'" data-index="' + index + '" class="cur"><a class="waves-effect waves-light">' + title + '</a><i class="zmdi zmdi-close" onclick="Tab.closeTab($(this))"></i></li>';
 			$('.content_tab>ul').append(tab);
 			// 添加iframe
 			$('.iframe').removeClass('cur');
@@ -172,6 +172,7 @@ var Tab = {
 		$('#guide').trigger(click);
 	},
 	closeTab: function($item) {
+		$item = $item.parent();
 		var closeable = $item.data('closeable');
 		if (closeable != false) {
 			// 如果当前时激活状态则关闭后激活左边选项卡
@@ -204,4 +205,8 @@ function initScrollState() {
 	} else {
 		$('.tab_right>a').addClass('active');
 	}
+}
+
+function close(){
+
 }

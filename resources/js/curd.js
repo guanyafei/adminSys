@@ -9,7 +9,7 @@ $(function() {
 	});
 
 	$table.bootstrapTable({
-		url: './resources/data/data1.json',
+		url: '../resources/data/data1.json',
 		height: getHeight(),
 		striped: true,
 		search: true,
@@ -67,7 +67,7 @@ function createAction() {
 	$.confirm({
 		type: 'dark',
 		animationSpeed: 300,
-		title: '新增系统',
+		title: '用户',
 		content: $('#createDialog').html(),
 		buttons: {
 			confirm: {
@@ -104,7 +104,7 @@ function updateAction() {
 		$.confirm({
 			type: 'blue',
 			animationSpeed: 300,
-			title: '编辑系统',
+			title: '编辑客户信息',
 			content: $('#createDialog').html(),
 			buttons: {
 				confirm: {
@@ -143,7 +143,7 @@ function deleteAction() {
 			type: 'red',
 			animationSpeed: 300,
 			title: false,
-			content: '确认删除该系统吗？',
+			content: '确认删除该客户信息？',
 			buttons: {
 				confirm: {
 					text: '确认',
@@ -155,7 +155,7 @@ function deleteAction() {
 						}
 						$.alert('删除：id=' + ids.join("-"));
 					}
-				},
+				}, 
 				cancel: {
 					text: '取消',
 					btnClass: 'waves-effect waves-button'

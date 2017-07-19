@@ -21,6 +21,8 @@ a:focus {
 }
 
 
+
+
 /** 头部 **/
 
 #header {
@@ -32,7 +34,7 @@ a:focus {
     left: 0;
     top: 0;
     box-shadow: 0 1px 4px rgba(0, 0, 0, .3);
-     background: #29A176;
+    background: #29A176;
 }
 
 #menu {
@@ -46,6 +48,8 @@ a:focus {
 #menu>li {
     float: left;
 }
+
+
 
 
 /* 头部左侧侧边栏操作按钮 */
@@ -128,6 +132,8 @@ a:focus {
 }
 
 
+
+
 /* 头部左侧logo */
 
 #logo a {
@@ -146,6 +152,8 @@ a:focus {
 }
 
 
+
+
 /* 头部右侧工具按钮 */
 
 .pull-right {
@@ -162,6 +170,7 @@ a:focus {
     margin: 0 1px;
     vertical-align: top;
     min-width: 50px;
+    line-height: 36px;
 }
 
 .hi-menu>li>a {
@@ -206,11 +215,6 @@ a:focus {
     color: #333;
     padding: 10px 20px;
     font-size: 13px;
-    -webkit-transition: background-color;
-    -o-transition: background-color;
-    transition: background-color;
-    -webkit-transition-duration: .3s;
-    transition-duration: .3s
 }
 
 .dropdown li>a>.zmdi {
@@ -226,14 +230,27 @@ a:focus {
     font-size: 13px;
 }
 
-#search-form {
-    margin: 6px 15px;
+.form-control {
+    background-color: #29a176;
+    color: white;
+    border-color: white;
+    border-radius: 24px;
 }
 
-#keywords {
-    min-width: 150px
+.form-control:-moz-placeholder {/* Mozilla Firefox 4 to 18*/
+    color: white;
+}
+.form-control::-moz-placeholder {/* Mozilla Firefox 19+*/
+    color: white;
 }
 
+.form-control:-ms-input-placeholder{
+    color: white;
+}
+
+.form-control::-webkit-input-placeholder{
+    color: white;
+}
 
 /** 正文 **/
 
@@ -242,6 +259,8 @@ a:focus {
     padding-top: 70px;
     padding-bottom: 0;
 }
+
+
 
 
 /* 侧边栏响应式 */
@@ -268,6 +287,8 @@ a:focus {
 }
 
 
+
+
 /** 侧边栏 **/
 
 #sidebar {
@@ -283,6 +304,8 @@ a:focus {
     overflow-y: auto;
     box-shadow: 1px 0 4px rgba(0, 0, 0, .3);
 }
+
+
 
 
 /* 侧边栏个人信息 */
@@ -354,6 +377,8 @@ a:focus {
 .zmdi-caret-down:before {
     content: '\f2f2'
 }
+
+
 
 
 /* 侧边栏菜单 */
@@ -489,6 +514,8 @@ a:focus {
 }
 
 
+
+
 /* 内容区响应式 */
 
 @media (min-width: 768px) {
@@ -514,6 +541,8 @@ a:focus {
     padding-right: 0;
     transition: all;
 }
+
+
 
 
 /* 内容区 */
@@ -553,6 +582,8 @@ a:focus {
 #content {
     height: 100%;
 }
+
+
 
 
 /* 选项卡 */
@@ -625,6 +656,15 @@ a:focus {
     line-height: 48px;
     margin: 0;
     font-size: 14px;
+    position: relative;
+}
+
+.content_tab>ul>li>i {
+    position: absolute;
+    top: 50%;
+    right: 6px;
+    margin-top: -7px;
+    cursor: pointer;
 }
 
 .content_tab>ul>li>a {
@@ -691,6 +731,8 @@ a:focus {
     margin-bottom: 5px;
     line-height: 2em;
 }
+
+
 
 
 /* 底部 */
