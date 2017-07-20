@@ -20,8 +20,8 @@ $(function() {
         minimumCountColumns: 2,
         // showPaginationSwitch: true,
         clickToSelect: true,
-        detailView: true,
-        detailFormatter: 'detailFormatter',
+        // detailView: true,
+        // detailFormatter: 'detailFormatter',
         pagination: true,
         paginationLoop: false,
         classes: 'table table-hover table-no-bordered',
@@ -58,10 +58,10 @@ $(function() {
 
 function operateFormatter(value, row, index) {
     return [
-        '<a class="edit" href="javascript:void(0)" title="Like">',
+        '<a class="edit" href="javascript:void(0)" title="编辑">',
         '<i class="zmdi zmdi-edit"></i>',
         '</a>  ',
-        '<a class="remove" href="javascript:void(0)" title="Remove">',
+        '<a class="remove" href="javascript:void(0)" title="删除">',
         '<i class="zmdi zmdi-close"></i>',
         '</a>'
     ].join('');
@@ -72,21 +72,21 @@ window.operateEvents = {
         alert("编辑");
     },
     'click .remove': function(e, value, row, index) {
-        // $table.bootstrapTable('remove', {
-        //     field: 'id',
-        //     values: [row.id]
-        // });
+        $table.bootstrapTable('remove', {
+            field: 'id',
+            values: [row.id]
+        });
         alert("删除");
     }
 };
 
-function detailFormatter(index, row) {
-    var html = [];
-    $.each(row, function(key, value) {
-        html.push('<p><b>' + key + ':</b> ' + value + '</p>');
-    });
-    return html.join('');
-}
+// function detailFormatter(index, row) {
+//     var html = [];
+//     $.each(row, function(key, value) {
+//         html.push('<p><b>' + key + ':</b> ' + value + '</p>');
+//     });
+//     return html.join('');
+// }
 // 新增
 function createAction() {
     $.confirm({
@@ -112,81 +112,81 @@ function createAction() {
 }
 // 编辑
 // function updateAction() {
-// 	var rows = $table.bootstrapTable('getSelections');
-// 	if (rows.length == 0) {
-// 		$.confirm({
-// 			title: false,
-// 			content: '请至少选择一条记录！',
-// 			autoClose: 'cancel|3000',
-// 			backgroundDismiss: true,
-// 			buttons: {
-// 				cancel: {
-// 					text: '取消',
-// 					btnClass: 'waves-effect waves-button'
-// 				}
-// 			}
-// 		});
-// 	} else {
-// 		$.confirm({
-// 			type: 'blue',
-// 			animationSpeed: 300,
-// 			title: '编辑客户信息',
-// 			content: $('#createDialog').html(),
-// 			buttons: {
-// 				confirm: {
-// 					text: '确认',
-// 					btnClass: 'waves-effect waves-button',
-// 					action: function () {
-// 						$.alert('确认');
-// 					}
-// 				},
-// 				cancel: {
-// 					text: '取消',
-// 					btnClass: 'waves-effect waves-button'
-// 				}
-// 			}
-// 		});
-// 	}
+//  var rows = $table.bootstrapTable('getSelections');
+//  if (rows.length == 0) {
+//      $.confirm({
+//          title: false,
+//          content: '请至少选择一条记录！',
+//          autoClose: 'cancel|3000',
+//          backgroundDismiss: true,
+//          buttons: {
+//              cancel: {
+//                  text: '取消',
+//                  btnClass: 'waves-effect waves-button'
+//              }
+//          }
+//      });
+//  } else {
+//      $.confirm({
+//          type: 'blue',
+//          animationSpeed: 300,
+//          title: '编辑客户信息',
+//          content: $('#createDialog').html(),
+//          buttons: {
+//              confirm: {
+//                  text: '确认',
+//                  btnClass: 'waves-effect waves-button',
+//                  action: function () {
+//                      $.alert('确认');
+//                  }
+//              },
+//              cancel: {
+//                  text: '取消',
+//                  btnClass: 'waves-effect waves-button'
+//              }
+//          }
+//      });
+//  }
 // }
 // // 删除
 // function deleteAction() {
-// 	var rows = $table.bootstrapTable('getSelections');
-// 	if (rows.length == 0) {
-// 		$.confirm({
-// 			title: false,
-// 			content: '请至少选择一条记录！',
-// 			autoClose: 'cancel|3000',
-// 			backgroundDismiss: true,
-// 			buttons: {
-// 				cancel: {
-// 					text: '取消',
-// 					btnClass: 'waves-effect waves-button'
-// 				}
-// 			}
-// 		});
-// 	} else {
-// 		$.confirm({
-// 			type: 'red',
-// 			animationSpeed: 300,
-// 			title: false,
-// 			content: '确认删除该客户信息？',
-// 			buttons: {
-// 				confirm: {
-// 					text: '确认',
-// 					btnClass: 'waves-effect waves-button',
-// 					action: function () {
-// 						var ids = new Array();
-// 						for (var i in rows) {
-// 							ids.push(rows[i].systemId);
-// 						}
-// 						$.alert('删除：id=' + ids.join("-"));
-// 					}
-// 				}, 
-// 				cancel: {
-// 					text: '取消',
-// 					btnClass: 'waves-effect waves-button'
-// 				}
-// 			}
-// 		});
-// 	}
+//  var rows = $table.bootstrapTable('getSelections');
+//  if (rows.length == 0) {
+//      $.confirm({
+//          title: false,
+//          content: '请至少选择一条记录！',
+//          autoClose: 'cancel|3000',
+//          backgroundDismiss: true,
+//          buttons: {
+//              cancel: {
+//                  text: '取消',
+//                  btnClass: 'waves-effect waves-button'
+//              }
+//          }
+//      });
+//  } else {
+//      $.confirm({
+//          type: 'red',
+//          animationSpeed: 300,
+//          title: false,
+//          content: '确认删除该客户信息？',
+//          buttons: {
+//              confirm: {
+//                  text: '确认',
+//                  btnClass: 'waves-effect waves-button',
+//                  action: function () {
+//                      var ids = new Array();
+//                      for (var i in rows) {
+//                          ids.push(rows[i].systemId);
+//                      }
+//                      $.alert('删除：id=' + ids.join("-"));
+//                  }
+//              }, 
+//              cancel: {
+//                  text: '取消',
+//                  btnClass: 'waves-effect waves-button'
+//              }
+//          }
+//      });
+//  }
 // }

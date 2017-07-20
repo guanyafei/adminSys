@@ -30,6 +30,8 @@ a i {
 }
 
 
+
+
 /* 数据表格 */
 
 body {
@@ -53,8 +55,23 @@ body {
 .bootstrap-table .table:not(.table-condensed)>thead>tr>td {
     padding: 12px 8px;
 }
+/* table 鼠标经过变色 */
+.table-hover>tbody>tr:hover {
+    background-color: #29a176;
+    color: white;
+}
 
+.table-hover>tbody>tr:hover .zmdi {
+    color: white;
+}
 
+.table-hover>tbody>tr:hover .glyphicon {
+    color: white;
+}
+/* 操作图标间距 */
+.bootstrap-table .table.table-no-bordered>tbody>tr>td:last-child a{
+    padding:5px 5px;
+}
 /* 分页 */
 
 .pagination>.active>a,
@@ -80,6 +97,8 @@ body {
 }
 
 
+
+
 /* bootstrap */
 
 .jconfirm .jconfirm-box .jconfirm-buttons button {
@@ -91,6 +110,8 @@ body {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
+
+
 
 
 /* input */
