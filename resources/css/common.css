@@ -96,9 +96,16 @@ body {
     background-color: #999;
 }
 
-
-
-
+/* 模态框设置 */
+.modal>.modal-dialog>.modal-content>.modal-header{
+    background-color: #29a176;
+}
+.modal>.modal-dialog>.modal-content>.modal-footer>.waves-button{
+    border: 1px solid #ccc;
+}
+.modal>.modal-dialog>.modal-content>.modal-footer>.waves-button.save{
+    background-color: #29a176;
+}
 /* bootstrap */
 
 .jconfirm .jconfirm-box .jconfirm-buttons button {

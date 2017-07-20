@@ -86,107 +86,20 @@ window.operateEvents = {
 //         html.push('<p><b>' + key + ':</b> ' + value + '</p>');
 //     });
 //     return html.join('');
-// }
-// 新增
-function createAction() {
-    $.confirm({
-        type: 'dark',
-        animationSpeed: 300,
-        title: '新增',
-        columnClass: 'medium',
-        content: $('#createDialog').html(),
-        buttons: {
-            confirm: {
-                text: '确认',
-                btnClass: 'waves-effect waves-button',
-                action: function() {
-                    $.alert('确认');
-                }
-            },
-            cancel: {
-                text: '取消',
-                btnClass: 'waves-effect waves-button'
-            }
-        }
-    });
-}
-// 编辑
-// function updateAction() {
-//  var rows = $table.bootstrapTable('getSelections');
-//  if (rows.length == 0) {
-//      $.confirm({
-//          title: false,
-//          content: '请至少选择一条记录！',
-//          autoClose: 'cancel|3000',
-//          backgroundDismiss: true,
-//          buttons: {
-//              cancel: {
-//                  text: '取消',
-//                  btnClass: 'waves-effect waves-button'
-//              }
-//          }
-//      });
-//  } else {
-//      $.confirm({
-//          type: 'blue',
-//          animationSpeed: 300,
-//          title: '编辑客户信息',
-//          content: $('#createDialog').html(),
-//          buttons: {
-//              confirm: {
-//                  text: '确认',
-//                  btnClass: 'waves-effect waves-button',
-//                  action: function () {
-//                      $.alert('确认');
-//                  }
-//              },
-//              cancel: {
-//                  text: '取消',
-//                  btnClass: 'waves-effect waves-button'
-//              }
-//          }
-//      });
-//  }
-// }
-// // 删除
-// function deleteAction() {
-//  var rows = $table.bootstrapTable('getSelections');
-//  if (rows.length == 0) {
-//      $.confirm({
-//          title: false,
-//          content: '请至少选择一条记录！',
-//          autoClose: 'cancel|3000',
-//          backgroundDismiss: true,
-//          buttons: {
-//              cancel: {
-//                  text: '取消',
-//                  btnClass: 'waves-effect waves-button'
-//              }
-//          }
-//      });
-//  } else {
-//      $.confirm({
-//          type: 'red',
-//          animationSpeed: 300,
-//          title: false,
-//          content: '确认删除该客户信息？',
-//          buttons: {
-//              confirm: {
-//                  text: '确认',
-//                  btnClass: 'waves-effect waves-button',
-//                  action: function () {
-//                      var ids = new Array();
-//                      for (var i in rows) {
-//                          ids.push(rows[i].systemId);
-//                      }
-//                      $.alert('删除：id=' + ids.join("-"));
-//                  }
-//              }, 
-//              cancel: {
-//                  text: '取消',
-//                  btnClass: 'waves-effect waves-button'
-//              }
-//          }
-//      });
-//  }
-// }
+// } 
+
+/*表格操作*/
+var Handler = {
+    // 显示模态框
+    openModal: function() {
+        $(".modal").modal({
+            show: true
+        });
+    },
+    addInfo: function() {
+        $('.modal').modal('hide');
+        $('.modal').on('hidden.bs.modal', function(e) {
+            alert('成功');
+        })
+    }
+};

@@ -66,86 +66,6 @@ $(function() {
 			initScrollState();
 		});
 	});
-	// 初始化箭头状态
-	
-	// 选项卡右键菜单
-	// var menu = new BootstrapMenu('.tabs li', {
-	// 	fetchElementData: function(item) {
-	// 		return item;
-	// 	},
-	// 	actionsGroups: [
-	// 		['close', 'refresh'],
-	// 		['closeOther', 'closeAll'],
-	// 		['closeRight', 'closeLeft']
-	// 	],
-	// 	actions: {
-	// 		close: {
-	// 			name: '关闭',
-	// 			iconClass: 'zmdi zmdi-close',
-	// 			onClick: function(item) {
-	// 				Tab.closeTab($(item));
-	// 			}
-	// 		},
-	// 		closeOther: {
-	// 			name: '关闭其他',
-	// 			iconClass: 'zmdi zmdi-arrow-split',
-	// 			onClick: function(item) {
-	// 				var index = $(item).data('index');
-	// 				$('.content_tab li').each(function() {
-	// 					if ($(this).data('index') != index) {
-	// 						Tab.closeTab($(this));
-	// 					}
-	// 				});
-	// 			}
-	// 		},
-	// 		closeAll: {
-	// 			name: '关闭全部',
-	// 			iconClass: 'zmdi zmdi-swap',
-	// 			onClick: function() {
-	// 				$('.content_tab li').each(function() {
-	// 					Tab.closeTab($(this));
-	// 				});
-	// 			}
-	// 		},
-	// 		closeRight: {
-	// 			name: '关闭右侧所有',
-	// 			iconClass: 'zmdi zmdi-arrow-right',
-	// 			onClick: function(item) {
-	// 				var index = $(item).data('index');
-	// 				$($('.content_tab li').toArray().reverse()).each(function() {
-	// 					if ($(this).data('index') != index) {
-	// 						Tab.closeTab($(this));
-	// 					} else {
-	// 						return false;
-	// 					}
-	// 				});
-	// 			}
-	// 		},
-	// 		closeLeft: {
-	// 			name: '关闭左侧所有',
-	// 			iconClass: 'zmdi zmdi-arrow-left',
-	// 			onClick: function(item) {
-	// 				var index = $(item).data('index');
-	// 				$('.content_tab li').each(function() {
-	// 					if ($(this).data('index') != index) {
-	// 						Tab.closeTab($(this));
-	// 					} else {
-	// 						return false;
-	// 					}
-	// 				});
-	// 			}
-	// 		},
-	// 		refresh: {
-	// 			name: '刷新',
-	// 			iconClass: 'zmdi zmdi-refresh',
-	// 			onClick: function(item) {
-	// 				var index = $(item).data('index');
-	// 				var $iframe = $('#iframe_' + index).find('iframe');
-	// 				$iframe.attr('src', $iframe.attr('src'));
-	// 			}
-	// 		}
-	// 	}
-	// });
 });
 // 选项卡对象
 var Tab = {
@@ -205,8 +125,4 @@ function initScrollState() {
 	} else {
 		$('.tab_right>a').addClass('active');
 	}
-}
-
-function close(){
-
 }
