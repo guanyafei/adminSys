@@ -1,37 +1,39 @@
 ﻿<!DOCTYPE HTML>
 <html lang="zh-cn">
-<head>
-	<meta charset="utf-8">
-	<meta http-equiv="X-UA-Compatible" content="IE=edge">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
-	<title>通用增删改查</title>
 
-	<link href="../resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet"/>
-	<link href="../resources/plugins/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet"/>
-	<link href="../resources/plugins/bootstrap-table-master/bootstrap-table.min.css" rel="stylesheet"/>
-	<link href="../resources/plugins/Waves-master/waves.min.css" rel="stylesheet"/>
-	<link href="../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet"/>
-	<link href="../resources/css/common.css" rel="stylesheet"/>
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>通用增删改查</title>
+    <link href="../resources/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="../resources/plugins/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
+    <link href="../resources/plugins/bootstrap-table-master/bootstrap-table.min.css" rel="stylesheet" />
+    <link href="../resources/plugins/Waves-master/waves.min.css" rel="stylesheet" />
+    <link href="../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
+    <link href="../resources/css/common.css" rel="stylesheet" />
 </head>
+
 <body>
-<div id="main">
-	<div id="toolbar">
-		<a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a>
-		<a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a>
-		<a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除用户</a>
-	</div>
-	<table id="table"></table>
-</div>
-<!-- 新增 -->
-<div id="createDialog" class="crudDialog" hidden>
-<form class="form-horizontal clearfix">
+    <div id="main">
+        <div id="toolbar">
+            <a class="waves-effect waves-button" href="javascript:;" onclick="createAction()"><i class="zmdi zmdi-plus"></i> 新增用户</a>
+           <!--  <a class="waves-effect waves-button" href="javascript:;" onclick="updateAction()"><i class="zmdi zmdi-edit"></i> 编辑用户</a>
+            <a class="waves-effect waves-button" href="javascript:;" onclick="deleteAction()"><i class="zmdi zmdi-close"></i> 删除用户</a> -->
+             <a class="waves-effect waves-button" href="javascript:;" onclick="alert(1)"><i class="zmdi zmdi-file-plus"></i> Excel批量导入</a>
+        </div>
+        <table id="table"></table>
+    </div>
+    <!-- 新增 -->
+    <div id="createDialog" class="crudDialog" hidden>
+        <form class="form-horizontal clearfix">
             <div class="form-group col-md-12">
                 <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
                 <div class="col-sm-8 col-md-8">
                     <input type="text" class="form-control" id="userName" placeholder="用户名">
                 </div>
             </div>
-             <div class="form-group col-md-12">
+            <div class="form-group col-md-12">
                 <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
                 <div class="col-sm-8 col-md-8">
                     <input type="password" class="form-control" id="pwd" placeholder="密码">
@@ -49,17 +51,18 @@
                     <input type="text" class="form-control" id="telphone" placeholder="电话">
                 </div>
             </div>
-</div>
-<script src="../resources/plugins/jquery-3.2.1.min.js"></script>
-<script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
-<script src="../resources/plugins/bootstrap-table-master/bootstrap-table.min.js"></script>
-<script src="../resources/plugins/bootstrap-table-master/bootstrap-table-zh-CN.min.js"></script>
-<script src="../resources/plugins/Waves-master/waves.min.js"></script>
-<script src="../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
-<script src="../resources/js/common.js"></script>
-<script src="../resources/js/curd.js"></script>
-<script>
-
-</script>
+        </form>
+    </div>
+    <script src="../resources/plugins/jquery-3.2.1.min.js"></script>
+    <script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
+    <script src="../resources/plugins/bootstrap-table-master/bootstrap-table.min.js"></script>
+    <script src="../resources/plugins/bootstrap-table-master/bootstrap-table-zh-CN.min.js"></script>
+    <script src="../resources/plugins/Waves-master/waves.min.js"></script>
+    <script src="../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
+    <script src="../resources/js/common.js"></script>
+    <script src="../resources/js/curd.js"></script>
+    <script>
+    </script>
 </body>
+
 </html>
