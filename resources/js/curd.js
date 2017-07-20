@@ -15,10 +15,10 @@ $(function() {
 		search: true,
 		searchOnEnterKey: true,
 		showRefresh: true,
-		showToggle: true,
+		// showToggle: true,
 		showColumns: true,
 		minimumCountColumns: 2,
-		showPaginationSwitch: true,
+		// showPaginationSwitch: true,
 		clickToSelect: true,
 		detailView: true,
 		detailFormatter: 'detailFormatter',
@@ -67,7 +67,8 @@ function createAction() {
 	$.confirm({
 		type: 'dark',
 		animationSpeed: 300,
-		title: '用户',
+		title: '新增',
+		columnClass: 'medium',
 		content: $('#createDialog').html(),
 		buttons: {
 			confirm: {

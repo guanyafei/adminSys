@@ -30,14 +30,14 @@
             <li class="pull-right">
                 <ul class="hi-menu">
                     <!-- 搜索 -->
-                   <!--  <li class="dropdown  search">
+                    <!--  <li class="dropdown  search">
                         <a class="waves-effect waves-light" data-toggle="dropdown" href="javascript:;">
                             <i class="him-icon zmdi zmdi-search"></i>
                         </a>
                         <input id="keywords" type="text" name="keywords" class="form-control" placeholder="搜索" />
                     </li> -->
                     <li class="dropdown">
-                        <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-run"></i> 退出登录</a>
+                        <a class="waves-effect" href="../index.html"><i class="zmdi zmdi-run"></i> 退出登录</a>
                     </li>
                 </ul>
             </li>
@@ -63,17 +63,17 @@
                     <a class="waves-effect" href="javascript:Tab.addTab('首页', 'home');"><i class="zmdi zmdi-home"></i> 首页</a>
                 </li>
                 <li class="sub-menu system_menus system_1 3">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 信息管理</a>
+                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i>管理员</a>
                     <ul>
-                        <li><a class="waves-effect" href="javascript:Tab.addTab('角色管理', './crud.html');">角色管理</a></li>
-                        <li><a class="waves-effect" href="javascript:Tab.addTab('用户管理', '/manage/user/index');">用户管理</a></li>
+                        <li><a class="waves-effect" href="javascript:Tab.addTab('客户信息管理', './crud.html');">信息管理</a></li>
+                        <li><a class="waves-effect" href="javascript:Tab.addTab('管理员信息管理', 'ad');">Excel批量录入</a></li>
                     </ul>
                 </li>
                 <li class="sub-menu system_menus system_1 3">
-                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i> 信息管理</a>
+                    <a class="waves-effect" href="javascript:;"><i class="zmdi zmdi-accounts"></i>客户</a>
                     <ul>
-                        <li><a class="waves-effect" href="javascript:Tab.addTab('角色管理', './crud.html');">角色管理</a></li>
-                        <li><a class="waves-effect" href="javascript:Tab.addTab('用户管理', '/manage/user/index');">用户管理</a></li>
+                        <li><a class="waves-effect" href="javascript:Tab.addTab('角色管理', './a/crud.html');">信息管理</a></li>
+                        <li><a class="waves-effect" href="javascript:Tab.addTab('角色管理', './b/crud.html');">Excel批量录入</a></li>
                     </ul>
                 </li>
             </ul>
@@ -96,9 +96,39 @@
             </div>
             <div class="content_main">
                 <div id="iframe_home" class="iframe cur">
-                    欢迎
+                    <div class="register container-fluid">
+                        <form class="form-horizontal clearfix" id="form1">
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="userName" class="col-sm-4 control-label">用户名</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="userName" placeholder="用户名">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="pwd" class="col-sm-4 control-label">密码</label>
+                                <div class="col-sm-8">
+                                    <input type="password" class="form-control" id="pwd" placeholder="密码">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="email" class="col-sm-4 control-label">邮箱</label>
+                                <div class="col-sm-8">
+                                    <input type="email" class="form-control" id="email" placeholder="邮箱">
+                                </div>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-6">
+                                <label for="telphone" class="col-sm-4 control-label">电话</label>
+                                <div class="col-sm-8">
+                                    <input type="text" class="form-control" id="telphone" placeholder="电话">
+                                </div>
+                            </div>
+                        </form>
+                        <div class="form-btn clearfix">
+                            <button type="submit" class="waves-effect waves-button waves-float save" form="form1">保存</button>
+                            <button type="reset" class="waves-effect waves-button waves-float cancle" form="form1">取消</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
         </section>
     </section>
     <footer id="footer"></footer>

@@ -230,27 +230,27 @@ a:focus {
     font-size: 13px;
 }
 
-.form-control {
-    background-color: #29a176;
-    color: white;
-    border-color: white;
-    border-radius: 24px;
-}
+// .form-control {
+//     background-color: #29a176;
+//     color: white;
+//     border-color: white;
+//     border-radius: 24px;
+// }
 
-.form-control:-moz-placeholder {/* Mozilla Firefox 4 to 18*/
-    color: white;
-}
-.form-control::-moz-placeholder {/* Mozilla Firefox 19+*/
-    color: white;
-}
+// .form-control:-moz-placeholder {/* Mozilla Firefox 4 to 18*/
+//     color: white;
+// }
+// .form-control::-moz-placeholder {/* Mozilla Firefox 19+*/
+//     color: white;
+// }
 
-.form-control:-ms-input-placeholder{
-    color: white;
-}
+// .form-control:-ms-input-placeholder{
+//     color: white;
+// }
 
-.form-control::-webkit-input-placeholder{
-    color: white;
-}
+// .form-control::-webkit-input-placeholder{
+//     color: white;
+// }
 
 /** 正文 **/
 
@@ -739,4 +739,29 @@ a:focus {
 
 #footer {
     display: none;
+}
+
+
+
+/* 首页注册表单 */
+.register{
+    padding-top: 50px;
+}
+.save,.cancle{
+    width:90px;
+    border-radius: 50px;
+}
+.save{
+    margin-right:10px;
+    background-color: #29A176;
+}
+.cancle{
+    margin-left:10px;
+}
+.form-group{
+    margin-bottom: 40px;
+}
+.form-btn{
+    margin-top: 200px;
+    text-align: center;
 }

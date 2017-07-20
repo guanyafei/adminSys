@@ -24,24 +24,31 @@
 </div>
 <!-- 新增 -->
 <div id="createDialog" class="crudDialog" hidden>
-	<form>
-		<div class="form-group">
-			<label for="input1">标题</label>
-			<input id="input1" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="input2">名称</label>
-			<input id="input2" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="input3">根目录</label>
-			<input id="input3" type="text" class="form-control">
-		</div>
-		<div class="form-group">
-			<label for="input4">图标</label>
-			<input id="input4" type="text" class="form-control">
-		</div>
-	</form>
+<form class="form-horizontal clearfix">
+            <div class="form-group col-md-12">
+                <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" id="userName" placeholder="用户名">
+                </div>
+            </div>
+             <div class="form-group col-md-12">
+                <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="password" class="form-control" id="pwd" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="email" class="form-control" id="email" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="form-group col-md-12">
+                <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" id="telphone" placeholder="电话">
+                </div>
+            </div>
 </div>
 <script src="../resources/plugins/jquery-3.2.1.min.js"></script>
 <script src="../resources/plugins/bootstrap/js/bootstrap.min.js"></script>
