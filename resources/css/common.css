@@ -138,3 +138,9 @@ body .jconfirm {
 .dialog-buttons a {
     font-weight: bold;
 }
+
+
+/* 表单隐藏 */
+#insert,#update,#import{
+    display: none;
+}

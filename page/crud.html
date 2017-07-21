@@ -10,56 +10,95 @@
     <link href="../resources/plugins/material-design-iconic-font/css/material-design-iconic-font.min.css" rel="stylesheet" />
     <link href="../resources/plugins/bootstrap-table-master/bootstrap-table.min.css" rel="stylesheet" />
     <link href="../resources/plugins/Waves-master/waves.min.css" rel="stylesheet" />
-    <link href="../resources/plugins/jquery-confirm/jquery-confirm.min.css" rel="stylesheet" />
     <link href="../resources/css/common.css" rel="stylesheet" />
 </head>
 
 <body>
     <div id="main">
         <div id="toolbar">
-            <a class="waves-effect waves-button" href="javascript:;" onclick="Handler.openModal()" data-target="#gridSystemModal"><i class="zmdi zmdi-plus"></i> 新增用户</a>
-            <a class="waves-effect waves-button" href="javascript:;" onclick="alert(1)"><i class="zmdi zmdi-file-plus"></i> Excel批量导入</a>
+            <a class="waves-effect waves-button" href="javascript:;" onclick="Handler.openModal('用户新增','insert')" data-target="#gridSystemModal"><i class="zmdi zmdi-plus"></i> 新增用户</a>
+            <a class="waves-effect waves-button" href="javascript:;" onclick="Handler.openModal('Excel批量导入','import')"><i class="zmdi zmdi-file-plus"></i> Excel批量导入</a>
         </div>
         <table id="table"></table>
     </div>
-    <!-- 新增模态框 -->
+    <!-- 用户信息插入 -->
+    <div id="insert">
+        <form class="form-horizontal clearfix">
+            <div class="form-group col-md-6">
+                <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" id="userName" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="password" class="form-control" id="pwd" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="email" class="form-control" id="email" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" id="telphone" placeholder="电话">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- 用户信息修改 -->
+    <div id="update">
+        <form class="form-horizontal clearfix">
+            <div class="form-group col-md-6">
+                <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" name="userName" id="userName" placeholder="用户名">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="密码">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
+                </div>
+            </div>
+            <div class="form-group col-md-6">
+                <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
+                <div class="col-sm-8 col-md-8">
+                    <input type="text" class="form-control" name="telphone" id="telphone" placeholder="电话">
+                </div>
+            </div>
+        </form>
+    </div>
+    <!-- excel批量导入 -->
+    <div id="import">
+        <form class="form-horizontal clearfix">
+            <input type="file" class="form-control" name="file" id="file">
+        </form>
+    </div>
+    <!-- 模态框 -->
     <div class="modal fade" tabindex="-1" role="dialog" aria-labelledby="gridSystemModalLabel">
         <div class="modal-dialog modal-lg" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                    <h4 class="modal-title" id="gridSystemModalLabel">用户新增</h4>
+                    <h4 class="modal-title" id="gridSystemModalLabel">
+                        
+                    </h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal clearfix">
-                        <div class="form-group col-md-6">
-                            <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
-                            <div class="col-sm-8 col-md-8">
-                                <input type="text" class="form-control" id="userName" placeholder="用户名">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
-                            <div class="col-sm-8 col-md-8">
-                                <input type="password" class="form-control" id="pwd" placeholder="密码">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
-                            <div class="col-sm-8 col-md-8">
-                                <input type="email" class="form-control" id="email" placeholder="邮箱">
-                            </div>
-                        </div>
-                        <div class="form-group col-md-6">
-                            <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
-                            <div class="col-sm-8 col-md-8">
-                                <input type="text" class="form-control" id="telphone" placeholder="电话">
-                            </div>
-                        </div>
-                    </form>
                 </div>
                 <div class="modal-footer">
-                    <button type="submit" class="waves-effect waves-button save" onclick="Handler.addInfo()">保存</button>
+                    <button type="button" class="waves-effect waves-button save">保存</button>
                     <button type="button" class="waves-effect waves-button cancle" data-dismiss="modal">取消</button>
                 </div>
             </div>
@@ -71,7 +110,6 @@
     <script src="../resources/plugins/bootstrap-table-master/bootstrap-table.min.js"></script>
     <script src="../resources/plugins/bootstrap-table-master/bootstrap-table-zh-CN.min.js"></script>
     <script src="../resources/plugins/Waves-master/waves.min.js"></script>
-    <script src="../resources/plugins/jquery-confirm/jquery-confirm.min.js"></script>
     <script src="../resources/js/common.js"></script>
     <script src="../resources/js/curd.js"></script>
     <script>

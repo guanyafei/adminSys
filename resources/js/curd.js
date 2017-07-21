@@ -58,10 +58,10 @@ $(function() {
 
 function operateFormatter(value, row, index) {
     return [
-        '<a class="edit" href="javascript:void(0)" title="编辑">',
+        '<a class="edit" href="javascript:void(0)" title="更新用户信息">',
         '<i class="zmdi zmdi-edit"></i>',
         '</a>  ',
-        '<a class="remove" href="javascript:void(0)" title="删除">',
+        '<a class="remove" href="javascript:void(0)" title="删除用户信息">',
         '<i class="zmdi zmdi-close"></i>',
         '</a>'
     ].join('');
@@ -69,7 +69,7 @@ function operateFormatter(value, row, index) {
 window.operateEvents = {
     'click .edit': function(e, value, row, index) {
         // alert('You click like action, row: ' + JSON.stringify(row));
-        alert("编辑");
+        Handler.openModal("更新用户信息", "update", row);
     },
     'click .remove': function(e, value, row, index) {
         $table.bootstrapTable('remove', {
@@ -88,18 +88,101 @@ window.operateEvents = {
 //     return html.join('');
 // } 
 
-/*表格操作*/
+/*用户信息操作*/
 var Handler = {
     // 显示模态框
-    openModal: function() {
+    openModal: function(title, operate, data) {
+        $(".modal-title").text(title);
+        // 清空modal-body内部内容
+        $(".modal-body").empty()
+        //判断操作
+        if (operate === "insert") {
+            // 修改模态框body内容
+            var $insert = $("#insert>form");
+            $(".modal-body").append($insert);
+            $(".modal-footer>.save").attr("onclick", "Handler.insertInfo()");
+        } else if (operate === "update") {
+            var $update = $("#update>form");
+            $("#update input[name='userName']").val(data.username);
+            $("#update input[name='pwd']").val(data.password);
+            $("#update input[name='email']").val(data.email);
+            $("#update input[name='telphone']").val(data.phone);
+            $(".modal-body").append($update);
+            $(".modal-footer>.save").attr("onclick", "Handler.updateInfo()");
+        } else if (operate === "import") {
+            var $import = $("#import>form");
+            $(".modal-body").append($import);
+            $(".modal-footer>.save").attr("onclick", "Handler.importInfo()");
+        }
         $(".modal").modal({
             show: true
         });
     },
-    addInfo: function() {
-        $('.modal').modal('hide');
-        $('.modal').on('hidden.bs.modal', function(e) {
-            alert('成功');
-        })
+    //添加客户信息
+    insertInfo: function() {
+        var data = {
+            userName: $(".modal-body input[name='userName']").val(),
+            pwd: $(".modal-body input[name='pwd']").val(),
+            email: $(".modal-body input[name='email']").val(),
+            telphone: $(".modal-body input[name='telphone']").val()
+        };
+        $.ajax({
+            url: "",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            success: function(result) {
+                if (result.code === "0") {
+                    alert("添加失败")
+                } else {
+                    alert("添加成功");
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+
+    },
+    //修改客户信息
+    updateInfo: function() {
+        var data = {
+            userName: $(".modal-body input[name='userName']").val(),
+            pwd: $(".modal-body input[name='pwd']").val(),
+            email: $(".modal-body input[name='email']").val(),
+            telphone: $(".modal-body input[name='telphone']").val()
+        };
+        $.ajax({
+            url: "",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            success: function(result) {
+                if (result.code === "0") {
+                    alert("添加失败")
+                } else {
+                    alert("添加成功");
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    },
+    //导入excel表格
+    importInfo: function() {
+        var file = $(".modal-body input[name='file']").get(0).files[0];
+        $.ajax({
+            url: "",
+            dataType: "json",
+            type: "POST",
+            data: file,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            success: function(result) {
+                if (result.code === "0") {
+                    alert("添加失败")
+                } else {
+                    alert("添加成功");
+                    $('.modal').modal('hide');
+                }
+            }
+        });
     }
 };
