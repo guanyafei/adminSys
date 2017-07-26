@@ -33,24 +33,25 @@ $(function() {
         sortOrder: 'desc',
         escape: true,
         searchOnEnterKey: true,
-        idField: 'systemId',
+        idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
+        uniqueId: 'id',
         columns: [
             // {field: 'state', checkbox: true},
-            { field: 'id', title: '编号', sortable: true, halign: 'center' },
-            { field: 'username', title: '账号', halign: 'center' },
-            { field: 'password', title: '密码', halign: 'center' },
-            { field: 'name', title: '姓名', sortable: true, halign: 'center' },
-            { field: 'sex', title: '性别', halign: 'center' },
-            { field: 'age', title: '年龄', sortable: true, halign: 'center' },
-            { field: 'phone', title: '手机', halign: 'center' },
-            { field: 'email', title: '邮箱', halign: 'center' },
-            { field: 'address', title: '地址', halign: 'center' },
-            { field: 'remark', title: '备注', halign: 'center' },
-            { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter },
+            { field: 'id', title: '编号', sortable: true, halign: 'center', align: 'center' },
+            { field: 'phone', title: '手机号', halign: 'center', align: 'center' },
+            { field: 'password', title: '密码', halign: 'center', align: 'center' },
+            { field: 'customername', title: '用户姓名', halign: 'center', align: 'center' },
+            { field: 'company', title: '公司', halign: 'center', align: 'center' },
+            { field: 'dept', title: '部门', halign: 'center', align: 'center' },
+            { field: 'sex', title: '性别', halign: 'center', align: 'center' },
+            { field: 'birthday', title: '出生日期', sortable: true, halign: 'center', align: 'center' },
+            { field: 'address', title: '地址', halign: 'center', align: 'center' },
+            { field: 'email', title: '邮箱', halign: 'center', align: 'center' },
+            { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter }
         ]
-    }).on('all.bs.table', function(e, name, args) {
+    }).on('all.bs.table', function(e, customername, args) {
         $('[data-toggle="tooltip"]').tooltip();
         $('[data-toggle="popover"]').popover();
     });
@@ -98,21 +99,31 @@ var Handler = {
         //判断操作
         if (operate === "insert") {
             // 修改模态框body内容
-            var $insert = $("#insert>form");
+            var $insert = $("#insert>form").clone();
             $(".modal-body").append($insert);
             $(".modal-footer>.save").attr("onclick", "Handler.insertInfo()");
         } else if (operate === "update") {
-            var $update = $("#update>form");
-            $("#update input[name='userName']").val(data.username);
-            $("#update input[name='pwd']").val(data.password);
-            $("#update input[name='email']").val(data.email);
-            $("#update input[name='telphone']").val(data.phone);
+            var $update = $("#update>form").clone();
             $(".modal-body").append($update);
-            $(".modal-footer>.save").attr("onclick", "Handler.updateInfo()");
+            $(".modal-body input[name='customerName']").val(data.customername);
+            $(".modal-body input[name='password']").val(data.password);
+            $(".modal-body input[name='email']").val(data.email);
+            $(".modal-body input[name='telphone']").val(data.phone);
+            $(".modal-body select[name='sex']").val(data.sex);
+            $(".modal-body input[name='company']").val(data.company);
+            $(".modal-body input[name='dept']").val(data.dept);
+            $(".modal-body input[name='address']").val(data.address);
+            $(".modal-body input[name='birthday']").val(data.birthday);
+
+            $(".modal-footer>.save").attr("onclick", "Handler.updateInfo(data.id)");
         } else if (operate === "import") {
-            var $import = $("#import>form");
+            var $import = $("#import>.form-horizontal").clone();
             $(".modal-body").append($import);
             $(".modal-footer>.save").attr("onclick", "Handler.importInfo()");
+        } else if (operate === "scan") {
+            var $scan = $("#scan>.form-horizontal").clone();
+            $(".modal-body").append($scan);
+            $(".modal-footer>.save").attr("onclick", "Handler.cardScan()");
         }
         $(".modal").modal({
             show: true
@@ -120,14 +131,9 @@ var Handler = {
     },
     //添加客户信息
     insertInfo: function() {
-        var data = {
-            userName: $(".modal-body input[name='userName']").val(),
-            pwd: $(".modal-body input[name='pwd']").val(),
-            email: $(".modal-body input[name='email']").val(),
-            telphone: $(".modal-body input[name='telphone']").val()
-        };
+        var data = $(".modal-body>.form-horizontal").serializeArray();
         $.ajax({
-            url: "",
+            url: "*************",
             dataType: "json",
             type: "POST",
             data: data,
@@ -140,18 +146,12 @@ var Handler = {
                 }
             }
         });
-
     },
     //修改客户信息
-    updateInfo: function() {
-        var data = {
-            userName: $(".modal-body input[name='userName']").val(),
-            pwd: $(".modal-body input[name='pwd']").val(),
-            email: $(".modal-body input[name='email']").val(),
-            telphone: $(".modal-body input[name='telphone']").val()
-        };
+    updateInfo: function(key) {
+        var data = $(".modal-body>.form-horizontal").serializeArray();
         $.ajax({
-            url: "",
+            url: "*********?id="+key,
             dataType: "json",
             type: "POST",
             data: data,
@@ -168,11 +168,14 @@ var Handler = {
     //导入excel表格
     importInfo: function() {
         var file = $(".modal-body input[name='file']").get(0).files[0];
+        var data = {
+            data: file
+        };
         $.ajax({
-            url: "",
+            url: "************",
             dataType: "json",
             type: "POST",
-            data: file,
+            data: data,
             processData: false, // 告诉jQuery不要去处理发送的数据
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
             success: function(result) {
@@ -184,5 +187,53 @@ var Handler = {
                 }
             }
         });
+    },
+    //扫描名片
+    cardScan: function() {
+        var file = $(".modal-body>.form-horizontal>img").get(0).files[0];
+        var data = {
+            data: file
+        };
+        $.ajax({
+            url: "***********",
+            dataType: "json",
+            type: "POST",
+            data: data,
+            processData: false, // 告诉jQuery不要去处理发送的数据
+            contentType: false, // 告诉jQuery不要去设置Content-Type请求头
+            success: function(result) {
+                if (result.code === "0") {
+                    alert("扫描失败")
+                } else {
+                    alert("扫描成功");
+                    $('.modal').modal('hide');
+                }
+            }
+        });
+    },
+    //名片预览
+    cardPreview: function(fileDom) {
+        //判断是否支持FileReader
+        if (window.FileReader) {
+            var reader = new FileReader();
+        } else {
+            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+        }
+        //获取文件
+        var file = $(fileDom).get(0).files[0];
+        console.log(file);
+        var imageType = /^image\//;
+        //判断是否是图片
+        if (!imageType.test(file.type)) {
+            alert("请选择图片!");
+            return;
+        }
+        reader.readAsDataURL(file);
+        //读取完成
+        reader.onload = function(e) {
+            var $img = $(".modal-body>.form-horizontal>img");
+            //图片路径设置为读取的图片
+            $img.attr("src", e.target.result);
+        };
     }
 };

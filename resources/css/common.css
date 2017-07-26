@@ -90,12 +90,6 @@ body {
     color: #000;
 }
 
-.dropdown-menu>.active>a,
-.dropdown-menu>.active>a:hover,
-.dropdown-menu>.active>a:focus {
-    background-color: #999;
-}
-
 /* 模态框设置 */
 .modal>.modal-dialog>.modal-content>.modal-header{
     background-color: #29a176;
@@ -106,41 +100,27 @@ body {
 .modal>.modal-dialog>.modal-content>.modal-footer>.waves-button.save{
     background-color: #29a176;
 }
+.modal>.modal-dialog>.modal-content>.modal-body>.form-horizontal>img{
+    margin-top: 15px;
+}
 /* bootstrap */
 
-.jconfirm .jconfirm-box .jconfirm-buttons button {
-    -webkit-border-radius: 0;
-    border-radius: 0;
-}
 
 .btn:active {
     -webkit-box-shadow: none;
     box-shadow: none;
 }
 
-
-
-
-/* input */
-
-body .jconfirm {
-    z-index: 999;
+/* alert弹窗  */
+#main .alert{
+    position: absolute;
+    left:-380px;
+    top:30%;
+    margin-left:20px;
+    width:360px;
 }
-
-.jconfirm-content form {
-    margin-top: 10px;
-}
-
-.crudDialog {
-    padding: 0 0 2px;
-}
-
-.dialog-buttons a {
-    font-weight: bold;
-}
-
 
 /* 表单隐藏 */
-#insert,#update,#import{
+#insert,#update,#import,#scan{
     display: none;
 }

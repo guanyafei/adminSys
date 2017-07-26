@@ -16,65 +16,137 @@
 <body>
     <div id="main">
         <div id="toolbar">
-            <a class="waves-effect waves-button" href="javascript:;" onclick="Handler.openModal('用户新增','insert')" data-target="#gridSystemModal"><i class="zmdi zmdi-plus"></i> 新增用户</a>
-            <a class="waves-effect waves-button" href="javascript:;" onclick="Handler.openModal('Excel批量导入','import')"><i class="zmdi zmdi-file-plus"></i> Excel批量导入</a>
+            <a class="waves-effect waves-button" href="javascript:Handler.openModal('用户新增','insert');"><i class="zmdi zmdi-plus"></i> 新增用户</a>
+            <a class="waves-effect waves-button" href="javascript:Handler.openModal('Excel批量导入','import');"><i class="zmdi zmdi-file-plus"></i> Excel批量导入</a>
+            <a class="waves-effect waves-button" href="javascript:Handler.openModal('名片扫描','scan');"><i class="zmdi zmdi-card"></i> 名片扫描</a>
         </div>
         <table id="table"></table>
+        <!-- alert弹窗 -->
+        <div class="alert alert-success alert-dismissible alert-danger" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            操作<strong>成功！</strong> 
+        </div>
     </div>
     <!-- 用户信息插入 -->
     <div id="insert">
-        <form class="form-horizontal clearfix">
-            <div class="form-group col-md-6">
-                <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" id="userName" placeholder="用户名">
+        <form class="form-horizontal clearfix" id="form1">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="telphone" class="col-sm-4 control-label">手机号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="telphone" id="telphone" placeholder="手机号">
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="password" class="form-control" id="pwd" placeholder="密码">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="pwd" class="col-sm-4 control-label">密码</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="密码">
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="email" class="form-control" id="email" placeholder="邮箱">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="customerName" class="col-sm-4 control-label">用户姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="customerName" id="customerName" placeholder="用户姓名">
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" id="telphone" placeholder="电话">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="company " class="col-sm-4 control-label">公司</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="company" id="company" placeholder="公司">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="dept" class="col-sm-4 control-label">部门</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="dept" id="dept" placeholder="部门">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="male" class="col-sm-4 control-label">性别 </label>
+                <div class="col-sm-8">
+                    <select class="col-sm-8 form-control" name="sex" id="sex">
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="birthday " class="col-sm-4 control-label">出生日期</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" name="birthday" id="birthday" placeholder="生日">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="address " class="col-sm-4 control-label">地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="地址">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="email" class="col-sm-4 control-label">邮箱</label>
+                <div class="col-sm-8">
+                    <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
                 </div>
             </div>
         </form>
     </div>
     <!-- 用户信息修改 -->
     <div id="update">
-        <form class="form-horizontal clearfix">
-            <div class="form-group col-md-6">
-                <label for="userName" class="col-sm-4 col-md-4 control-label">用户名</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="userName" id="userName" placeholder="用户名">
+        <form class="form-horizontal clearfix" id="form1">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="telphone" class="col-sm-4 control-label">手机号</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="telphone" id="telphone" placeholder="手机号">
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="pwd" class="col-sm-4 col-md-4 control-label">密码</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="password" class="form-control" name="pwd" id="pwd" placeholder="密码">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="pwd" class="col-sm-4 control-label">密码</label>
+                <div class="col-sm-8">
+                    <input type="password" class="form-control" name="password" id="password" placeholder="密码">
                 </div>
             </div>
-            <div class="form-group col-md-6">
-                <label for="email" class="col-sm-4 col-md-4 control-label">邮箱</label>
-                <div class="col-sm-8 col-md-8">
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="customerName" class="col-sm-4 control-label">用户姓名</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="customerName" id="customerName" placeholder="用户姓名">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="company " class="col-sm-4 control-label">公司</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="company" id="company" placeholder="公司">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="dept" class="col-sm-4 control-label">部门</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="dept" id="dept" placeholder="部门">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="male" class="col-sm-4 control-label">性别 </label>
+                <div class="col-sm-8">
+                    <select class="col-sm-8 form-control" name="sex" id="sex">
+                        <option value="0">男</option>
+                        <option value="1">女</option>
+                    </select>
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="birthday " class="col-sm-4 control-label">出生日期</label>
+                <div class="col-sm-8">
+                    <input type="date" class="form-control" name="birthday" id="birthday" placeholder="生日">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="address " class="col-sm-4 control-label">地址</label>
+                <div class="col-sm-8">
+                    <input type="text" class="form-control" name="address" id="address" placeholder="地址">
+                </div>
+            </div>
+            <div class="form-group col-md-6 col-sm-6">
+                <label for="email" class="col-sm-4 control-label">邮箱</label>
+                <div class="col-sm-8">
                     <input type="email" class="form-control" name="email" id="email" placeholder="邮箱">
-                </div>
-            </div>
-            <div class="form-group col-md-6">
-                <label for="telphone" class="col-sm-4 col-md-4 control-label">电话</label>
-                <div class="col-sm-8 col-md-8">
-                    <input type="text" class="form-control" name="telphone" id="telphone" placeholder="电话">
                 </div>
             </div>
         </form>
@@ -83,6 +155,13 @@
     <div id="import">
         <form class="form-horizontal clearfix">
             <input type="file" class="form-control" name="file" id="file">
+        </form>
+    </div>
+    <!-- 名片扫描 -->
+    <div id="scan">
+        <form class="form-horizontal clearfix">
+            <input type="file" class="form-control" name="file" id="file" onchange="Handler.cardPreview(this)">
+            <img class="img-responsive previewImg" name="previewImg">
         </form>
     </div>
     <!-- 模态框 -->

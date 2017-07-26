@@ -378,8 +378,9 @@ a:focus {
     content: '\f2f2'
 }
 
-
-
+.save:hover{
+    background-color: #29A176;
+}
 
 /* 侧边栏菜单 */
 
@@ -762,6 +763,6 @@ a:focus {
     margin-bottom: 40px;
 }
 .form-btn{
-    margin-top: 200px;
+    // margin-top: 10px;
     text-align: center;
 }
