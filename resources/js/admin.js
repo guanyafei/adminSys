@@ -24,7 +24,6 @@ function resizeFrameHeight() {
 }
 window.onresize = function() {
 	resizeFrameHeight();
-	initScrollShow();
 	initScrollState(); 
 }
 
@@ -81,7 +80,6 @@ var Tab = {
 			$('.iframe').removeClass('cur');
 			var iframe = '<div id="iframe_' + index + '" class="iframe cur"><iframe class="tab_iframe" src="' + url + '" width="100%" frameborder="0" scrolling="auto" onload="changeFrameHeight(this)"></iframe></div>';
 			$('.content_main').append(iframe);
-			initScrollShow();
 			$('.content_tab>ul').animate({scrollLeft: document.getElementById('tabs').scrollWidth - document.getElementById('tabs').clientWidth}, 200, function() {
 				initScrollState();
 			});
@@ -104,14 +102,6 @@ var Tab = {
 			$('#iframe_' + index).remove();
 			$item.remove();
 		}
-		initScrollShow();
-	}
-}
-function initScrollShow() {
-	if (document.getElementById('tabs').scrollWidth > document.getElementById('tabs').clientWidth) {
-		$('.content_tab').addClass('scroll');
-	} else {
-		$('.content_tab').removeClass('scroll');
 	}
 }
 function initScrollState() {

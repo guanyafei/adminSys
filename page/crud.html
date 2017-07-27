@@ -24,7 +24,7 @@
         <!-- alert弹窗 -->
         <div class="alert alert-success alert-dismissible alert-danger" role="alert">
             <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            操作<strong>成功！</strong> 
+            <strong>操作失败！</strong> 
         </div>
     </div>
     <!-- 用户信息插入 -->
@@ -37,7 +37,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="pwd" class="col-sm-4 control-label">密码</label>
+                <label for="password" class="col-sm-4 control-label">密码</label>
                 <div class="col-sm-8">
                     <input type="password" class="form-control" name="password" id="password" placeholder="密码">
                 </div>
@@ -49,7 +49,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="company " class="col-sm-4 control-label">公司</label>
+                <label for="company" class="col-sm-4 control-label">公司</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="company" id="company" placeholder="公司">
                 </div>
@@ -61,7 +61,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="male" class="col-sm-4 control-label">性别 </label>
+                <label for="sex" class="col-sm-4 control-label">性别 </label>
                 <div class="col-sm-8">
                     <select class="col-sm-8 form-control" name="sex" id="sex">
                         <option value="0">男</option>
@@ -70,13 +70,13 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="birthday " class="col-sm-4 control-label">出生日期</label>
+                <label for="birthday" class="col-sm-4 control-label">出生日期</label>
                 <div class="col-sm-8">
                     <input type="date" class="form-control" name="birthday" id="birthday" placeholder="生日">
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="address " class="col-sm-4 control-label">地址</label>
+                <label for="address" class="col-sm-4 control-label">地址</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="address" id="address" placeholder="地址">
                 </div>
@@ -99,7 +99,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="pwd" class="col-sm-4 control-label">密码</label>
+                <label for="password" class="col-sm-4 control-label">密码</label>
                 <div class="col-sm-8">
                     <input type="password" class="form-control" name="password" id="password" placeholder="密码">
                 </div>
@@ -111,7 +111,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="company " class="col-sm-4 control-label">公司</label>
+                <label for="company" class="col-sm-4 control-label">公司</label>
                 <div class="col-sm-8">
                     <input type="text" class="form-control" name="company" id="company" placeholder="公司">
                 </div>
@@ -123,7 +123,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="male" class="col-sm-4 control-label">性别 </label>
+                <label for="sex" class="col-sm-4 control-label">性别 </label>
                 <div class="col-sm-8">
                     <select class="col-sm-8 form-control" name="sex" id="sex">
                         <option value="0">男</option>
@@ -132,7 +132,7 @@
                 </div>
             </div>
             <div class="form-group col-md-6 col-sm-6">
-                <label for="birthday " class="col-sm-4 control-label">出生日期</label>
+                <label for="birthday" class="col-sm-4 control-label">出生日期</label>
                 <div class="col-sm-8">
                     <input type="date" class="form-control" name="birthday" id="birthday" placeholder="生日">
                 </div>
@@ -162,6 +162,7 @@
         <form class="form-horizontal clearfix">
             <input type="file" class="form-control" name="file" id="file" onchange="Handler.cardPreview(this)">
             <img class="img-responsive previewImg" name="previewImg">
+            <span>请选择图片</span>
         </form>
     </div>
     <!-- 模态框 -->

@@ -103,9 +103,12 @@ body {
 .modal>.modal-dialog>.modal-content>.modal-body>.form-horizontal>img{
     margin-top: 15px;
 }
+.modal>.modal-dialog>.modal-content>.modal-body>.form-horizontal>span{
+    display: none;
+    color:red;
+}
+
 /* bootstrap */
-
-
 .btn:active {
     -webkit-box-shadow: none;
     box-shadow: none;
