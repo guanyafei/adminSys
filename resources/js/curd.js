@@ -1,7 +1,19 @@
 var $table = $('#table');
 $(function() {
     $table.bootstrapTable({
-        url: '../resources/data/data1.json',
+        url: '/user/ajax_user_list',
+        pagination: true,
+        paginationLoop: false,
+        /*服务端分页*/
+        // dataField: "data",
+        // pageNumber: 1,
+        // queryParams: queryParams, //请求服务器时所传的参数
+        // sidePagination: 'server', //指定服务器端分页
+        // responseHandler: responseHandler, //请求数据成功后，渲染表格前的方法
+        // pageSize: 10, //单页记录数
+        // pageList: [10, 20, 30, 40, 50], //分页步进值
+        // "queryParamsType": "limit",
+        // contentType: "application/x-www-form-urlencoded",
         height: getHeight(),
         striped: true,
         search: true,
@@ -10,8 +22,6 @@ $(function() {
         showColumns: true,
         minimumCountColumns: 2,
         clickToSelect: true,
-        pagination: true,
-        paginationLoop: false,
         classes: 'table table-hover table-no-bordered',
         smartDisplay: false,
         idField: 'id',
@@ -22,10 +32,12 @@ $(function() {
         idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
+        // sidePagination: "server",
         uniqueId: 'id',
         columns: [
             // {field: 'state', checkbox: true},
-            { field: 'id', title: '编号', sortable: true, halign: 'center', align: 'center' },
+            { field: '', title: '编号', halign: 'center', align: 'center', formatter: indexFormatter },
+            { field: 'id', title: 'ID', sortable: true, halign: 'center', align: 'center' },
             { field: 'phone', title: '手机号', halign: 'center', align: 'center' },
             { field: 'password', title: '密码', halign: 'center', align: 'center' },
             { field: 'customername', title: '用户姓名', halign: 'center', align: 'center' },
@@ -37,12 +49,38 @@ $(function() {
             { field: 'email', title: '邮箱', halign: 'center', align: 'center' },
             { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter }
         ]
-    }).on('all.bs.table', function(e, customername, args) {
-        $('[data-toggle="tooltip"]').tooltip();
-        // $('[data-toggle="popover"]').popover();
-    });
+    })
+    // .on('all.bs.table', function(e, name, args) {
+    //     $('[data-toggle="tooltip"]').tooltip();
+    //     $('[data-toggle="popover"]').popover();
+    // });
 });
 
+//请求服务数据时所传参数
+function queryParams(params) {
+    return {
+        pageSize: params.limit, //每一页的数据行数，默认是上面设置的10(pageSize)
+        pageIndex: params.offset / params.limit + 1 //当前页面,默认是上面设置的1(pageNumber)
+    };
+}
+//请求成功后
+function responseHandler(result) {
+    var errcode = result.errcode; //在此做了错误代码的判断
+    if (errcode != 0) {
+        alert("错误代码" + errcode);
+        return;
+    }
+    //如果没有错误则返回数据，渲染表格
+    return {
+        total: result.dataLength, //总页数,前面的key必须为"total"
+        data: result.rowDatas //行数据，前面的key要与之前设置的dataField的值一致.
+    };
+}
+// 编号栏渲染
+function indexFormatter(value, row, index) {
+    return index + 1;
+}
+//操作栏渲染
 function operateFormatter(value, row, index) {
     return [
         '<a class="edit" href="javascript:void(0)" title="更新用户信息">',
@@ -69,12 +107,15 @@ window.operateEvents = {
 //     });
 //     return html.join('');
 // } 
+
 /*弹窗控制*/
 function alert(options) {
     if (options.state === "success") {
         $("#main .alert").removeClass('alert-danger').children("strong").text(options.tip);
     } else if (options.state === "fail") {
         $("#main .alert").addClass('alert-danger').children("strong").text(options.tip);
+    } else {
+        $("#main .alert").children("strong").text(options.tip);
     }
     $("#main .alert").animate({
         left: 0
@@ -82,6 +123,7 @@ function alert(options) {
         left: -380
     }, 1000);
 }
+
 /*用户信息操作*/
 var Handler = {
     // 显示模态框
@@ -125,49 +167,53 @@ var Handler = {
     //添加客户信息
     insertInfo: function() {
         var data = $(".modal-body>.form-horizontal").serializeArray();
-        console.log(data);
         $.ajax({
-            url: "*************",
+            url: "/user/user_add",
             dataType: "json",
             type: "POST",
             data: data,
             success: function(result) {
                 if (result.code === "0") {
-                    // 弹窗动画
+                    alert(result.message);
                     alert({
                         state: "fail！",
-                        tip: "添加成功！"
+                        tip: result.message
                     });
                 } else {
                     $('.modal').modal('hide');
                     alert({
                         state: "success！",
-                        tip: "添加失败！"
+                        tip: result.message
                     });
                 }
             }
+
         });
+
     },
     //修改客户信息
-    updateInfo: function(key) {
+    updateInfo: function(id) {
         var data = $(".modal-body>.form-horizontal").serializeArray();
         $.ajax({
-            url: "*********?id=" + key,
+            url: "/user/ajax_user_edit",
             dataType: "json",
             type: "POST",
-            data: data,
+            data: {
+                user_id: id,
+                data: data
+            },
             success: function(result) {
                 if (result.code === "0") {
                     alert({
                         state: "fail",
-                        tip: "更新失败！"
+                        tip: result.message
                     });
                 } else {
-                    $table.bootstrapTable("refresh", { url: "************" });
+                    $table.bootstrapTable("refresh", { url: "/user/ajax_user_list" });
                     $('.modal').modal('hide');
                     alert({
                         state: "success",
-                        tip: "更新成功！"
+                        tip: result.message
                     });
                 }
             }
@@ -175,15 +221,20 @@ var Handler = {
     },
     //删除单条数据
     removeInfo: function(row) {
+        console.log(row.id);
         $.ajax({
-            url: "*********?id=" + row.id,
+            url: "/user/ajax_user_del",
             dataType: "json",
             type: "POST",
+            data: {
+                user_id: row.id
+            },
             success: function(result) {
+                console.log(result);
                 if (result.code === "0") {
                     alert({
                         state: "fail",
-                        tip: "删除失败！"
+                        tip: result.message
                     });
                 } else {
                     $('.modal').modal('hide');
@@ -193,7 +244,7 @@ var Handler = {
                     });
                     alert({
                         state: "success",
-                        tip: "删除成功！"
+                        tip: result.message
                     });
                 }
             }
@@ -203,7 +254,7 @@ var Handler = {
     importInfo: function() {
         var file = $(".modal-body input[name='file']").get(0).files[0];
         var data = {
-            data: file
+            file: file
         };
         $.ajax({
             url: "************",
@@ -216,13 +267,13 @@ var Handler = {
                 if (result.code === "0") {
                     alert({
                         state: "fail",
-                        tip: "导入excel失败！"
+                        tip: result.message
                     });
                 } else {
                     $('.modal').modal('hide');
                     alert({
                         state: "success",
-                        tip: "导入excel成功！"
+                        tip: result.message
                     });
                 }
             }
@@ -232,7 +283,7 @@ var Handler = {
     cardScan: function() {
         var file = $(".modal-body>.form-horizontal>img").get(0).files[0];
         var data = {
-            data: file
+            file: file
         };
         $.ajax({
             url: "***********",
@@ -245,13 +296,13 @@ var Handler = {
                 if (result.code === "0") {
                     alert({
                         state: "fail",
-                        tip: "名片扫描失败！"
+                        tip: result.message
                     });
                 } else {
                     $('.modal').modal('hide');
                     alert({
                         state: "success",
-                        tip: "名片扫描成功！"
+                        tip: result.message
                     });
                 }
             }
@@ -263,9 +314,13 @@ var Handler = {
         if (window.FileReader) {
             var reader = new FileReader();
         } else {
-            alert("您的设备不支持图片预览功能，如需该功能请升级您的设备！");
+            alert({
+                tip: "您的浏览器不支持图片预览功能，如需该功能请升级您的浏览器！"
+            });
         }
         //获取文件
+        var $img = $(".modal-body>.form-horizontal>img");
+        $img.removeAttr('src');
         var file = $(fileDom).get(0).files[0];
         console.log(file);
         var imageType = /^image\//;
@@ -278,7 +333,6 @@ var Handler = {
         //读取完成
         reader.onload = function(e) {
             $(".modal-body>.form-horizontal>span").hide("slow", function() {
-                var $img = $(".modal-body>.form-horizontal>img");
                 //图片路径设置为读取的图片
                 $img.attr("src", e.target.result);
             });
