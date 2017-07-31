@@ -127,3 +127,8 @@ body {
 #insert,#update,#import,#scan{
     display: none;
 }
+
+/* popover提示窗 */
+.popover-content {
+    padding: 2px 10px;
+}

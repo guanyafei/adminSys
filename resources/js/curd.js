@@ -1,7 +1,24 @@
 var $table = $('#table');
 $(function() {
+    // Waves初始化
+    Waves.displayEffect();
+    // 数据表格动态高度
+    $(window).resize(function () {
+        $('#table').bootstrapTable('resetView', {
+            height: getHeight()
+        });
+    });
+    
     $table.bootstrapTable({
         url: '/user/ajax_user_list',
+        height: getHeight(),
+        striped: true,
+        search: true,
+        searchOnEnterKey: true,
+        showRefresh: true,
+        showColumns: true,
+        minimumCountColumns: 2,
+        clickToSelect: true,
         pagination: true,
         paginationLoop: false,
         /*服务端分页*/
@@ -14,14 +31,7 @@ $(function() {
         // pageList: [10, 20, 30, 40, 50], //分页步进值
         // "queryParamsType": "limit",
         // contentType: "application/x-www-form-urlencoded",
-        height: getHeight(),
-        striped: true,
-        search: true,
-        searchOnEnterKey: true,
-        showRefresh: true,
-        showColumns: true,
-        minimumCountColumns: 2,
-        clickToSelect: true,
+        // sidePagination: "server",
         classes: 'table table-hover table-no-bordered',
         smartDisplay: false,
         idField: 'id',
@@ -32,7 +42,6 @@ $(function() {
         idField: 'id',
         maintainSelected: true,
         toolbar: '#toolbar',
-        // sidePagination: "server",
         uniqueId: 'id',
         columns: [
             // {field: 'state', checkbox: true},
@@ -50,11 +59,8 @@ $(function() {
             { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter }
         ]
     })
-    // .on('all.bs.table', function(e, name, args) {
-    //     $('[data-toggle="tooltip"]').tooltip();
-    //     $('[data-toggle="popover"]').popover();
-    // });
 });
+
 
 //请求服务数据时所传参数
 function queryParams(params) {
@@ -99,7 +105,10 @@ window.operateEvents = {
         Handler.removeInfo(row);
     }
 };
-
+// 动态高度
+function getHeight() {
+    return $(window).height() - 20;
+}
 // function detailFormatter(index, row) {
 //     var html = [];
 //     $.each(row, function(key, value) {
@@ -108,6 +117,14 @@ window.operateEvents = {
 //     return html.join('');
 // } 
 
+// 初始化input特效
+/*function initMaterialInput() {
+    $('form input[type="text"]').each(function () {
+        if ($(this).val() != '') {
+            $(this).parent().find('label').addClass('active');
+        }
+    });
+}*/
 /*弹窗控制*/
 function alert(options) {
     if (options.state === "success") {
@@ -121,7 +138,7 @@ function alert(options) {
         left: 0
     }, 1000).delay(1000).animate({
         left: -380
-    }, 1000);
+    }, 3000);
 }
 
 /*用户信息操作*/
@@ -139,6 +156,7 @@ var Handler = {
             $(".modal-footer>.save").attr("onclick", "Handler.insertInfo()");
         } else if (operate === "update") {
             var $update = $("#update>form").clone();
+            console.log(row);
             $(".modal-body").append($update);
             $(".modal-body input[name='customerName']").val(row.customername);
             $(".modal-body input[name='password']").val(row.password);
@@ -171,25 +189,29 @@ var Handler = {
             url: "/user/user_add",
             dataType: "json",
             type: "POST",
-            data: data,
+            data: {
+                data: data
+            },
             success: function(result) {
+                $(".modal-body input[name='telphone']").popover("destroy");
                 if (result.code === "0") {
-                    alert(result.message);
+                    $('.modal').modal('hide');
                     alert({
                         state: "fail！",
                         tip: result.message
                     });
-                } else {
+                } else if (result.code === "1") {
                     $('.modal').modal('hide');
                     alert({
                         state: "success！",
                         tip: result.message
                     });
+                } else if (result.code === "2") {
+                    $(".modal-body input[name='telphone']").attr("data-content", "手机号已存在！");
+                    $(".modal-body input[name='telphone']").popover("show");
                 }
             }
-
         });
-
     },
     //修改客户信息
     updateInfo: function(id) {
@@ -203,6 +225,7 @@ var Handler = {
                 data: data
             },
             success: function(result) {
+                $('.modal').modal('hide');
                 if (result.code === "0") {
                     alert({
                         state: "fail",
@@ -210,7 +233,6 @@ var Handler = {
                     });
                 } else {
                     $table.bootstrapTable("refresh", { url: "/user/ajax_user_list" });
-                    $('.modal').modal('hide');
                     alert({
                         state: "success",
                         tip: result.message
@@ -230,14 +252,13 @@ var Handler = {
                 user_id: row.id
             },
             success: function(result) {
-                console.log(result);
+                $('.modal').modal('hide');
                 if (result.code === "0") {
                     alert({
                         state: "fail",
                         tip: result.message
                     });
                 } else {
-                    $('.modal').modal('hide');
                     $table.bootstrapTable('remove', {
                         field: 'id',
                         values: [row.id]
@@ -252,25 +273,25 @@ var Handler = {
     },
     //导入excel表格
     importInfo: function() {
+        var formData = new FormData();
         var file = $(".modal-body input[name='file']").get(0).files[0];
-        var data = {
-            file: file
-        };
+        formData.append("file", file);
         $.ajax({
-            url: "************",
+            url: "/excel/upload_do",
             dataType: "json",
             type: "POST",
-            data: data,
+            data: formData,
             processData: false, // 告诉jQuery不要去处理发送的数据
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
             success: function(result) {
+                $('.modal').modal('hide');
                 if (result.code === "0") {
                     alert({
                         state: "fail",
                         tip: result.message
                     });
                 } else {
-                    $('.modal').modal('hide');
+
                     alert({
                         state: "success",
                         tip: result.message
@@ -281,25 +302,24 @@ var Handler = {
     },
     //扫描名片
     cardScan: function() {
-        var file = $(".modal-body>.form-horizontal>img").get(0).files[0];
-        var data = {
-            file: file
-        };
+        var formData = new FormData();
+        var file = $(".modal-body input[name='file']").get(0).files[0];
+        formData.append("file", file);
         $.ajax({
             url: "***********",
             dataType: "json",
             type: "POST",
-            data: data,
+            data: formData,
             processData: false, // 告诉jQuery不要去处理发送的数据
             contentType: false, // 告诉jQuery不要去设置Content-Type请求头
             success: function(result) {
+                $('.modal').modal('hide');
                 if (result.code === "0") {
                     alert({
                         state: "fail",
                         tip: result.message
                     });
                 } else {
-                    $('.modal').modal('hide');
                     alert({
                         state: "success",
                         tip: result.message
@@ -315,7 +335,7 @@ var Handler = {
             var reader = new FileReader();
         } else {
             alert({
-                tip: "您的浏览器不支持图片预览功能，如需该功能请升级您的浏览器！"
+                tip: "您的设备不支持图片预览功能，如需该功能请升级您的设备！"
             });
         }
         //获取文件
@@ -337,5 +357,29 @@ var Handler = {
                 $img.attr("src", e.target.result);
             });
         };
+    },
+    //字段验证
+    validation: function(inputDom) {
+        $(inputDom).popover();
+        var name = $(inputDom).attr("name");
+        var reg;
+        var inputVal = $(inputDom).val();
+        //验证手机号
+        if (name === "telphone") {
+            reg = /^1(3|4|5|7|8)\d{9}$/;
+            this.validationTips(reg, inputVal, inputDom);
+            //验证邮箱
+        } else if (name === "email") {
+            reg = /^\w+([-+.]\w+)*@\w+([-.]\w+)*\.\w+([-.]\w+)*$/;
+            this.validationTips(reg, inputVal, inputDom);
+        }
+    },
+    //弹出窗提示
+    validationTips: function(reg, inputVal, inputDom) {
+        if (!reg.test(inputVal)) {
+            $(inputDom).popover("show");
+        } else {
+            $(inputDom).popover("destroy");
+        }
     }
 };
