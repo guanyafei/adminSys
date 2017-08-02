@@ -3,12 +3,12 @@ $(function() {
     // Waves初始化
     Waves.displayEffect();
     // 数据表格动态高度
-    $(window).resize(function () {
+    $(window).resize(function() {
         $('#table').bootstrapTable('resetView', {
             height: getHeight()
         });
     });
-    
+    // 表格初始化
     $table.bootstrapTable({
         url: '/user/ajax_user_list',
         height: getHeight(),
@@ -46,19 +46,24 @@ $(function() {
         columns: [
             // {field: 'state', checkbox: true},
             { field: '', title: '编号', halign: 'center', align: 'center', formatter: indexFormatter },
-            { field: 'id', title: 'ID', sortable: true, halign: 'center', align: 'center' },
+            { field: 'id', title: '用户ID', sortable: true, halign: 'center', align: 'center', visible: false },
+            { field: 'username', title: '用户名', halign: 'center', align: 'center' },
+            { field: 'name', title: '用户姓名', halign: 'center', align: 'center' },
+            { field: 'password', title: '密码', halign: 'center', align: 'center', visible: false },
             { field: 'phone', title: '手机号', halign: 'center', align: 'center' },
-            { field: 'password', title: '密码', halign: 'center', align: 'center' },
-            { field: 'customername', title: '用户姓名', halign: 'center', align: 'center' },
-            { field: 'company', title: '公司', halign: 'center', align: 'center' },
-            { field: 'dept', title: '部门', halign: 'center', align: 'center' },
-            { field: 'sex', title: '性别', halign: 'center', align: 'center' },
             { field: 'birthday', title: '出生日期', sortable: true, halign: 'center', align: 'center' },
-            { field: 'address', title: '地址', halign: 'center', align: 'center' },
+            { field: 'sex', title: '性别', halign: 'center', align: 'center' },
             { field: 'email', title: '邮箱', halign: 'center', align: 'center' },
+            { field: 'company', title: '公司', halign: 'center', align: 'center' },
+            { field: 'depart', title: '部门', halign: 'center', align: 'center' },
+            { field: 'address', title: '地址', halign: 'center', align: 'center' },
             { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter }
         ]
     })
+    // .on('all.bs.table', function(e, name, args) {
+    //     $('[data-toggle="tooltip"]').tooltip();
+    //     $('[data-toggle="popover"]').popover();
+    // });
 });
 
 
@@ -86,6 +91,7 @@ function responseHandler(result) {
 function indexFormatter(value, row, index) {
     return index + 1;
 }
+
 //操作栏渲染
 function operateFormatter(value, row, index) {
     return [
@@ -125,6 +131,7 @@ function getHeight() {
         }
     });
 }*/
+
 /*弹窗控制*/
 function alert(options) {
     if (options.state === "success") {
@@ -158,13 +165,14 @@ var Handler = {
             var $update = $("#update>form").clone();
             console.log(row);
             $(".modal-body").append($update);
-            $(".modal-body input[name='customerName']").val(row.customername);
+            $(".modal-body input[name='name']").val(row.name);
+            $(".modal-body input[name='username']").val(row.username);
             $(".modal-body input[name='password']").val(row.password);
             $(".modal-body input[name='email']").val(row.email);
-            $(".modal-body input[name='telphone']").val(row.phone);
+            $(".modal-body input[name='phone']").val(row.phone);
             $(".modal-body select[name='sex']").val(row.sex);
             $(".modal-body input[name='company']").val(row.company);
-            $(".modal-body input[name='dept']").val(row.dept);
+            $(".modal-body input[name='depart']").val(row.depart);
             $(".modal-body input[name='address']").val(row.address);
             $(".modal-body input[name='birthday']").val(row.birthday);
 
@@ -185,6 +193,10 @@ var Handler = {
     //添加客户信息
     insertInfo: function() {
         var data = $(".modal-body>.form-horizontal").serializeArray();
+        //判断验证是否通过
+        if ($(".modal-body .form-horizontal .popover").length != 0) {
+            return;
+        }
         $.ajax({
             url: "/user/user_add",
             dataType: "json",
@@ -193,22 +205,18 @@ var Handler = {
                 data: data
             },
             success: function(result) {
-                $(".modal-body input[name='telphone']").popover("destroy");
+                $(".modal-body input[name='phone']").popover("destroy");
+                $('.modal').modal('hide');
                 if (result.code === "0") {
-                    $('.modal').modal('hide');
                     alert({
                         state: "fail！",
                         tip: result.message
                     });
                 } else if (result.code === "1") {
-                    $('.modal').modal('hide');
                     alert({
                         state: "success！",
                         tip: result.message
                     });
-                } else if (result.code === "2") {
-                    $(".modal-body input[name='telphone']").attr("data-content", "手机号已存在！");
-                    $(".modal-body input[name='telphone']").popover("show");
                 }
             }
         });
@@ -360,12 +368,11 @@ var Handler = {
     },
     //字段验证
     validation: function(inputDom) {
-        $(inputDom).popover();
         var name = $(inputDom).attr("name");
         var reg;
         var inputVal = $(inputDom).val();
         //验证手机号
-        if (name === "telphone") {
+        if (name === "phone") {
             reg = /^1(3|4|5|7|8)\d{9}$/;
             this.validationTips(reg, inputVal, inputDom);
             //验证邮箱
@@ -374,12 +381,40 @@ var Handler = {
             this.validationTips(reg, inputVal, inputDom);
         }
     },
-    //弹出窗提示
+    //默认弹出窗提示
     validationTips: function(reg, inputVal, inputDom) {
         if (!reg.test(inputVal)) {
             $(inputDom).popover("show");
         } else {
-            $(inputDom).popover("destroy");
+            this.repeatValidate(inputDom, inputVal);
         }
+    },
+    //验证字段是否重复
+    repeatValidate: function(inputDom, inputVal) {
+        var inputName = $(inputDom).attr("name");
+        $(inputDom).popover("destroy");
+        // $.ajax({
+        //     url: "************",
+        //     method: "GET",
+        //     dataType: "json",
+        //     data: {
+        //         name: inputName,
+        //         value: inputVal
+        //     },
+        //     success: function(result) {
+        //         if (result.code === "0") {
+        //             if (inputName === "phone") {
+        //                 $(".modal-body input[name='phone']").attr("data-content", result.message);
+        //                 $(".modal-body input[name='phone']").popover("show");
+        //             } else if (inputName === "email") {
+        //                 $(".modal-body input[name='email']").attr("data-content", result.message);
+        //                 $(".modal-body input[name='email']").popover("show");
+        //             }
+        //             return;
+        //         } else if (result.code === "1") {
+        //             $(inputDom).popover("destroy");
+        //         }
+        //     }
+        // });
     }
 };
