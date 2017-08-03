@@ -52,18 +52,15 @@ $(function() {
             { field: 'password', title: '密码', halign: 'center', align: 'center', visible: false },
             { field: 'phone', title: '手机号', halign: 'center', align: 'center' },
             { field: 'birthday', title: '出生日期', sortable: true, halign: 'center', align: 'center' },
-            { field: 'sex', title: '性别', halign: 'center', align: 'center' },
+            { field: 'sex', title: '性别', halign: 'center', align: 'center', formatter: sexFormatter },
             { field: 'email', title: '邮箱', halign: 'center', align: 'center' },
             { field: 'company', title: '公司', halign: 'center', align: 'center' },
             { field: 'depart', title: '部门', halign: 'center', align: 'center' },
+            { field: 'item', title: '项目', halign: 'center', align: 'center' },
             { field: 'address', title: '地址', halign: 'center', align: 'center' },
             { field: 'operate', title: '操作', align: 'center', events: operateEvents, formatter: operateFormatter }
         ]
     })
-    // .on('all.bs.table', function(e, name, args) {
-    //     $('[data-toggle="tooltip"]').tooltip();
-    //     $('[data-toggle="popover"]').popover();
-    // });
 });
 
 
@@ -91,7 +88,14 @@ function responseHandler(result) {
 function indexFormatter(value, row, index) {
     return index + 1;
 }
-
+//性别栏渲染
+function sexFormatter(value, row, index) {
+    if (value === "0") {
+        return "男";
+    } else if (value === "1") {
+        return "女";
+    }
+}
 //操作栏渲染
 function operateFormatter(value, row, index) {
     return [
@@ -163,7 +167,6 @@ var Handler = {
             $(".modal-footer>.save").attr("onclick", "Handler.insertInfo()");
         } else if (operate === "update") {
             var $update = $("#update>form").clone();
-            console.log(row);
             $(".modal-body").append($update);
             $(".modal-body input[name='name']").val(row.name);
             $(".modal-body input[name='username']").val(row.username);
@@ -175,6 +178,7 @@ var Handler = {
             $(".modal-body input[name='depart']").val(row.depart);
             $(".modal-body input[name='address']").val(row.address);
             $(".modal-body input[name='birthday']").val(row.birthday);
+            // $(".modal-body input[name='item']").val(row.item);
 
             $(".modal-footer>.save").attr("onclick", "Handler.updateInfo(" + row.id + ")");
         } else if (operate === "import") {
@@ -193,7 +197,7 @@ var Handler = {
     //添加客户信息
     insertInfo: function() {
         var data = $(".modal-body>.form-horizontal").serializeArray();
-        //判断验证是否通过
+        //判断验证是否通过  不通过禁止提交
         if ($(".modal-body .form-horizontal .popover").length != 0) {
             return;
         }
@@ -206,6 +210,7 @@ var Handler = {
             },
             success: function(result) {
                 $(".modal-body input[name='phone']").popover("destroy");
+                $(".modal-body input[name='email']").popover("destroy");
                 $('.modal').modal('hide');
                 if (result.code === "0") {
                     alert({
@@ -213,6 +218,7 @@ var Handler = {
                         tip: result.message
                     });
                 } else if (result.code === "1") {
+                    $table.bootstrapTable("refresh", { url: "/user/ajax_user_list" });
                     alert({
                         state: "success！",
                         tip: result.message
@@ -283,7 +289,9 @@ var Handler = {
     importInfo: function() {
         var formData = new FormData();
         var file = $(".modal-body input[name='file']").get(0).files[0];
+        var item = $(".modal-body input[name='item']").val
         formData.append("file", file);
+        formData.append("item", item);
         $.ajax({
             url: "/excel/upload_do",
             dataType: "json",
@@ -386,13 +394,14 @@ var Handler = {
         if (!reg.test(inputVal)) {
             $(inputDom).popover("show");
         } else {
-            this.repeatValidate(inputDom, inputVal);
+            // this.repeatValidate(inputDom, inputVal);
+            $(inputDom).popover("destroy");
         }
     },
     //验证字段是否重复
     repeatValidate: function(inputDom, inputVal) {
         var inputName = $(inputDom).attr("name");
-        $(inputDom).popover("destroy");
+         $(inputDom).popover("destroy");
         // $.ajax({
         //     url: "************",
         //     method: "GET",
@@ -403,14 +412,8 @@ var Handler = {
         //     },
         //     success: function(result) {
         //         if (result.code === "0") {
-        //             if (inputName === "phone") {
-        //                 $(".modal-body input[name='phone']").attr("data-content", result.message);
-        //                 $(".modal-body input[name='phone']").popover("show");
-        //             } else if (inputName === "email") {
-        //                 $(".modal-body input[name='email']").attr("data-content", result.message);
-        //                 $(".modal-body input[name='email']").popover("show");
-        //             }
-        //             return;
+        //             $(".modal-body input[name='" + inputName + "']").attr("data-content", result.message);
+        //             $(".modal-body input[name='" + inputName + "']").popover("show");
         //         } else if (result.code === "1") {
         //             $(inputDom).popover("destroy");
         //         }
